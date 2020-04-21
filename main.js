@@ -73,19 +73,54 @@ const students = [
   }
 ];
 
+const studentContainer = document.querySelector("#container");
+
+const studentPassing = (name, subject, info) => {
+  return `
+  <div class="student">
+    <h1 class="xx-large passing">${name}</h1>
+    <section class="bordered dashed section--padded">${subject}</section>
+    <aside class="pushRight">${info}</aside>
+  </div>
+  `
+}
+
+const studentFailing = (name, subject, info) => {
+  return `
+  <div class="student">
+    <h1 class="xx-large failing">${name}</h1>
+    <section class="bordered dashed section--padded">${subject}</section>
+    <aside class="pushRight">${info}</aside>
+  </div>
+  `
+}
+
 //Iterate the array of students, and apply the correct style to the h1 depending on the score of the student being below 60, or above it.
 for (const student of students) {
   let studentComponent = ""
   if (student.score >= 60) {
-    studentComponent = ...
+    studentComponent = studentPassing(student.name, student.subject, student.info);
+    studentContainer.innerHTML += studentComponent;
   } else {
-    studentComponent = ...
+    studentComponent = studentFailing(student.name, student.subject, student.info);
+    studentContainer.innerHTML += studentComponent;
   }
 }
 
-//Should look like this if they are passing
-/*  <div class="student">
-      <h1 class="xx-large passing">Student Name</h1>
-      <section class="bordered dashed section--padded">Subject</section>
-      <aside class="pushRight">Additional information</aside>
-    </div> */
+const createStudentComponent = (students) => {
+  return `
+      <div class="student">
+          <h1>${students.name}</h1>
+          <section>${students.subject}</section>
+          <aside>${students.info}</aside>
+      </div>
+      `
+}
+
+for (const student of students) {
+  let studentComponent = "";
+  studentComponent = createStudentComponent(student);
+  studentContainer.innerHTML += studentComponent;
+}
+
+
